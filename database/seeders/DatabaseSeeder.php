@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Patient;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,6 +40,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // seeder Doctor
-        $this->call(DoctorSeeder::class);
+        $this->call([
+            DoctorSeeder::class,
+            DoctorScheduleSeeder::class,
+            PatientSeeder::class,
+        ]);
     }
 }

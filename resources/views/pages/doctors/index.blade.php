@@ -56,17 +56,22 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
+                                            <th>Photo</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Specialist</th>
-                                            <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($doctors as $doctor)
                                             <tr>
-
+                                                <td>
+                                                    @if ($doctor->photo)
+                                                    <img src="{{ asset('' . $doctor->photo) }}" alt="image" width="40" height="40" class="rounded-circle" >
+                                                    @else
+                                                    <span class="badge badge-danger">No Image</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $doctor->doctor_name }}
                                                 </td>
                                                 <td>
@@ -78,30 +83,26 @@
                                                 <td>
                                                     {{ $doctor->doctor_specialist }}
                                                 </td>
-                                                <td>{{ $doctor->created_at }}</td>
                                                 <td>
-                                                    <div class="d-flex justify-content-center">
+                                                    <div class="buttons d-flex justify-content-center">
+                                                        <a href="#" class="btn btn-sm btn-icon btn-success"><i class="fas fa-info-circle"></i></a>
                                                         <a href='{{ route('doctors.edit', $doctor->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
-                                                            Edit
                                                         </a>
-
                                                         <form action="{{ route('doctors.destroy', $doctor->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}" />
                                                             <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete
+                                                                <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                 </td>
                                             </tr>
                                         @endforeach
-
-
                                     </table>
                                 </div>
                                 <div class="float-right">

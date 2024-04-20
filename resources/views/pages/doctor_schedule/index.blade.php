@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Doctors Schedule')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,14 +11,14 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Users</h1>
+                <h1>Doctor Schedule</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('doctor-schedules.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item"><a href="#">Doctors</a></div>
+                    <div class="breadcrumb-item">All Doctors Schedules</div>
                 </div>
             </div>
             <div class="section-body">
@@ -27,9 +27,9 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Users</h2>
+                <h2 class="section-title">Doctors</h2>
                 <p class="section-lead">
-                    You can manage all Users, such as editing, deleting and more.
+                    You can manage all Doctors, such as editing, deleting and more.
                 </p>
 
 
@@ -41,7 +41,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('users.index') }}">
+                                    <form method="GET" action="{{ route('doctor-schedules.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="name">
                                             <div class="input-group-append">
@@ -57,31 +57,32 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Created At</th>
+                                            <th>Day</th>
+                                            <th>Time</th>
+                                            <th>Note</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($users as $user)
+                                        @foreach ($doctorSchedules as $schedule)
                                             <tr>
-                                                <td>{{ $user->name }}
+                                                <td>{{ $schedule->doctor->doctor_name }}
                                                 </td>
                                                 <td>
-                                                    {{ $user->email }}
+                                                    {{ $schedule->day }}
                                                 </td>
                                                 <td>
-                                                    {{ $user->phone }}
+                                                    {{ $schedule->time }}
                                                 </td>
-                                                <td>{{ $user->created_at }}</td>
+                                                <td>
+                                                    {{ $schedule->note }}
+                                                </td>
                                                 <td>
                                                     <div class="buttons d-flex justify-content-center">
                                                         <a href="#" class="btn btn-sm btn-icon btn-success"><i class="fas fa-info-circle"></i></a>
-                                                        <a href='{{ route('users.edit', $user->id) }}'
+                                                        <a href='{{ route('doctor-schedules.edit', $schedule->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-
-                                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('doctor-schedules.destroy', $schedule->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -94,12 +95,10 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-
-
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $users->withQueryString()->links() }}
+                                    {{ $doctorSchedules->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>

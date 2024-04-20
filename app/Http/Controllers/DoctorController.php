@@ -27,12 +27,14 @@ class DoctorController extends Controller
     //store
     public function store(Request $request) {
         $request->validate([
-            'doctor_name'   => 'required',
+            'doctor_name'       => 'required',
             'doctor_specialist' => 'required',
             'doctor_phone'      => 'required',
             'doctor_email'      => 'required',
             'address'           => 'required',
             'sip'               => 'required',
+            'id_ihs'            => 'required',
+            'nik'               => 'required',
         ]);
 
         $doctor = new Doctor();
@@ -42,7 +44,16 @@ class DoctorController extends Controller
         $doctor->doctor_email       = $request->doctor_email;
         $doctor->address            = $request->address;
         $doctor->sip                = $request->sip;
+        $doctor->id_ihs             = $request->id_ihs;
+        $doctor->nik                = $request->nik;
         $doctor->save();
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $image->storeAs('public/doctors', $doctor->id . '.' . $image->getClientOriginalExtension());
+            $doctor->photo = 'storage/doctors/' . $doctor->id . '.' . $image->getClientOriginalExtension();
+            $doctor->save();
+        }
 
         return redirect()->route('doctors.index')->with('success','Doctor created successfully');
     }

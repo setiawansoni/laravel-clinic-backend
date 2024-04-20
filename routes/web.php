@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProfileClinicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +32,13 @@ Route::middleware(['auth'])->group(function (){
 
     //Doctor
     Route::resource('doctors', DoctorController::class);
+
+    //DoctorSchedules
+    Route::resource('doctor-schedules', DoctorScheduleController::class);
+
+    //Patients
+    Route::resource('patients', PatientController::class);
+
+    //ProfileClinic
+    Route::resource('profile-clinics', ProfileClinicController::class);
 });

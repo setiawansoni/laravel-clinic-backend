@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Patients')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,14 +11,14 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Users</h1>
-                <div class="section-header-button">
+                <h1>Patients</h1>
+                {{-- <div class="section-header-button">
                     <a href="{{ route('users.create') }}" class="btn btn-primary">Add New</a>
-                </div>
+                </div> --}}
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item">All Patients</div>
                 </div>
             </div>
             <div class="section-body">
@@ -27,10 +27,7 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Users</h2>
-                <p class="section-lead">
-                    You can manage all Users, such as editing, deleting and more.
-                </p>
+                <h2 class="section-title">Patients</h2>
 
 
                 <div class="row mt-4">
@@ -41,9 +38,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('users.index') }}">
+                                    <form method="GET" action="{{ route('patients.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="name">
+                                            <input type="text" class="form-control" placeholder="Search" name="nik">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -56,42 +53,29 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
+                                            <th>NIK</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Birht Date</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
                                         </tr>
-                                        @foreach ($users as $user)
+                                        @foreach ($patients as $patient)
                                             <tr>
-                                                <td>{{ $user->name }}
+                                                <td>{{ $patient->nik }}
+                                                </td>
+                                                <td>{{ $patient->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $user->email }}
+                                                    {{ $patient->email }}
                                                 </td>
                                                 <td>
-                                                    {{ $user->phone }}
+                                                    {{ $patient->phone }}
                                                 </td>
-                                                <td>{{ $user->created_at }}</td>
                                                 <td>
-                                                    <div class="buttons d-flex justify-content-center">
-                                                        <a href="#" class="btn btn-sm btn-icon btn-success"><i class="fas fa-info-circle"></i></a>
-                                                        <a href='{{ route('users.edit', $user->id) }}'
-                                                            class="btn btn-sm btn-info btn-icon">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-
-                                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                                            class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE" />
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                    {{ $patient->birth_date }}
                                                 </td>
+                                                <td>{{ $patient->created_at }}</td>
                                             </tr>
                                         @endforeach
 
@@ -99,7 +83,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $users->withQueryString()->links() }}
+                                    {{ $patients->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>
